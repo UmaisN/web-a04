@@ -2,11 +2,11 @@ let mongoose = require("mongoose"),
 express = require("express"),
 router = express.Router();
 
-let directions_schema = require("../Models/Directions");
+let patterns_schema = require("../Models/Patterns");
 
 // Create
-router.route("/create-directions").post((req, res, next) => {
-    directions_schema.create(req.body, (error, data) => {
+router.route("/create-patterns").post((req, res, next) => {
+    patterns_schema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -17,8 +17,8 @@ router.route("/create-directions").post((req, res, next) => {
 });
 
 // Read
-router.route("/read-directions").get((req, res) => {
-    directions_schema.find((error, data) => {
+router.route("/read-patterns").get((req, res) => {
+    patterns_schema.find((error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -28,8 +28,8 @@ router.route("/read-directions").get((req, res) => {
 });
 
 // Update
-router.route("/update-directions/:id").put((req, res, next) => {
-    directions_schema.findByIdAndUpdate(
+router.route("/update-patterns/:id").put((req, res, next) => {
+    patterns_schema.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body,
@@ -46,8 +46,8 @@ router.route("/update-directions/:id").put((req, res, next) => {
 });
 
 // Delete
-router.route("/delete-directions/:id").delete((req, res, next) => {
-    directions_schema.findByIdAndRemove(req.params.id, (error, data) => {
+router.route("/delete-patterns/:id").delete((req, res, next) => {
+    patterns_schema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {

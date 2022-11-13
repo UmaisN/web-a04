@@ -3,6 +3,7 @@ const cors = require('cors')
 const fetch = require('cross-fetch')
 const app = express();
 const mongoose = require("mongoose")
+let bodyParser = require('body-parser');
 
 const User = require("./Models/user")
 const system_time = require("./Models/SystemTime")
@@ -12,6 +13,14 @@ const Routes = require('./Models/Routes')
 const Directions = require('./Models/Directions.js')
 const Stops = require('./Models/Stops')
 const Patterns = require('./Models/Patterns')
+
+// Express Route
+const createError = require('http-errors');
+const directionRoute = require('../backend/routes/directions.route')
+const patternsRoute = require('../backend/routes/patterns.route')
+const stopsRoute = require('../backend/routes/stops.route')
+const system_timeRoute = require('../backend/routes/system_time.route')
+const vehiclesRoute = require('../backend/routes/vehicles.route')
 
 require("dotenv/config");
 
@@ -227,6 +236,16 @@ app.get("/users",(req,res)=>{
 */
 
 //Routes
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cors());
+app.use('/directions', directionRoute)
+app.use('/patterns', patternsRoute)
+app.use('/stops', stopsRoute)
+app.use('/system_time', system_timeRoute)
+app.use('/vehicles', vehiclesRoute)
 
 app.listen(3000, () => {
   console.log("Listening to 3000")

@@ -1,12 +1,12 @@
 let mongoose = require("mongoose"),
-express = require("express"),
-router = express.Router();
+  express = require("express"),
+  router = express.Router();
 
-let directions_schema = require("../Models/Directions");
+let system_time_schema = require("../Models/SystemTime");
 
 // Create
-router.route("/create-directions").post((req, res, next) => {
-    directions_schema.create(req.body, (error, data) => {
+router.route("/create-system-time").post((req, res, next) => {
+  system_time_schema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -17,8 +17,8 @@ router.route("/create-directions").post((req, res, next) => {
 });
 
 // Read
-router.route("/read-directions").get((req, res) => {
-    directions_schema.find((error, data) => {
+router.route("/read-system-time").get((req, res) => {
+  system_time_schema.find((error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -28,8 +28,8 @@ router.route("/read-directions").get((req, res) => {
 });
 
 // Update
-router.route("/update-directions/:id").put((req, res, next) => {
-    directions_schema.findByIdAndUpdate(
+router.route("/update-system-id/:id").put((req, res, next) => {
+    system_time_schema.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body,
@@ -40,14 +40,15 @@ router.route("/update-directions/:id").put((req, res, next) => {
         console.log(error);
       } else {
         res.json(data);
+        console.log("System time updated successfully!");
       }
     }
   );
 });
 
 // Delete
-router.route("/delete-directions/:id").delete((req, res, next) => {
-    directions_schema.findByIdAndRemove(req.params.id, (error, data) => {
+router.route("/delete-system-time/:id").delete((req, res, next) => {
+    system_time_schema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
